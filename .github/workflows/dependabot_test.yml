@@ -1,0 +1,19 @@
+name: Dependabot Test Workflow
+
+on:
+    pull_request:
+        types: [opened, synchronize, reopened]
+        branches: [main]
+
+jobs:
+    build:
+        if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Run tests
+              run: |
+                echo "Running tests..."
+                echo {{ github.actor }}
+                echo Dependabot secret: ${{ secrets.DEPENDABOT_SECRET }}
+                echo Regular Actions secret: ${{ secrets.REGULAR_SECRET }}
